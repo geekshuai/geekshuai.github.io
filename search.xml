@@ -2,11 +2,32 @@
 <search>
   <entry>
     <title><![CDATA[Hello World]]></title>
+    <url>%2Fhexo%2Fhello%2Fnginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-server%E9%85%8D%E7%BD%AE%E9%83%A8%E5%88%86(1.4)%2F</url>
+    <content type="text"><![CDATA[nginx配置文件-server配置部分(1.4)server{} 包含在http{}内部，每一个server{}都是一个虚拟主机（站点）。以下为nginx.conf配置文件中server{}部分的内容。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081 server &#123; listen 80; //监听端口为80，可以自定义其他端口，也可以加上IP地址，如，listen 127.0.0.1:8080; server_name localhost; //定义网站域名，可以写多个，用空格分隔。 #charset koi8-r; //定义网站的字符集，一般不设置，而是在网页代码中设置。 #access_log logs/host.access.log main; //定义访问日志，可以针对每一个server（即每一个站点）设置它们自己的访问日志。 ##在server&#123;&#125;里有很多location配置段 location / &#123; root html; //定义网站根目录，目录可以是相对路径也可以是绝对路径。 index index.html index.htm; //定义站点的默认页。 &#125; #error_page 404 /404.html; //定义404页面 # redirect server error pages to the static page /50x.html # error_page 500 502 503 504 /50x.html; //当状态码为500、502、503、504时，则访问50x.html location = /50x.html &#123; root html; //定义50x.html所在路径 &#125; # proxy the PHP scripts to Apache listening on 127.0.0.1:80 # #定义访问php脚本时，将会执行本location&#123;&#125;部分指令 #location ~ \.php$ &#123; # proxy_pass http://127.0.0.1; //proxy_pass后面指定要访问的url链接，用proxy_pass实现代理。 #&#125; # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 # #location ~ \.php$ &#123; # root html; # fastcgi_pass 127.0.0.1:9000; //定义FastCGI服务器监听端口与地址，支持两种形式，1 IP:Port， 2 unix:/path/to/sockt # fastcgi_index index.php; # fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name; //定义SCRIPT_FILENAME变量，后面的路径/scripts为上面的root指定的目录 # include fastcgi_params; //引用prefix/conf/fastcgi_params文件，该文件定义了fastcgi相关的变量 #&#125; # deny access to .htaccess files, if Apache's document root # concurs with nginx's one # #location ~ /\.ht &#123; //访问的url中，以/.ht开头的，如，www.example.com/.htaccess，会被拒绝，返回403状态码。 # deny all; //这里的all指的是所有的请求。 #&#125;&#125;# another virtual host using mix of IP-, name-, and port-based configuration##server &#123;# listen 8000; //监听8000端口# listen somename:8080; //指定ip:port# server_name somename alias another.alias; //指定多个server_name# location / &#123;# root html;# index index.html index.htm;# &#125;#&#125;# HTTPS server##server &#123;# listen 443 ssl; //监听443端口，即ssl# server_name localhost;### 以下为ssl相关配置# ssl_certificate cert.pem; //指定pem文件路径# ssl_certificate_key cert.key; //指定key文件路径# ssl_session_cache shared:SSL:1m; //指定session cache大小# ssl_session_timeout 5m; //指定session超时时间# ssl_protocols TLSv1 TLSv1.1 TLSv1.2; //指定ssl协议# ssl_ciphers HIGH:!aNULL:!MD5; //指定ssl算法# ssl_prefer_server_ciphers on; //优先采取服务器算法# location / &#123;# root html;# index index.html index.htm;# &#125;#&#125;]]></content>
+      <categories>
+        <category>hexo</category>
+        <category>hello</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
     <url>%2Fhexo%2Fhello%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.Quick StartCreate a new post1$ hexo new "My New Post"More info: WritingRun server1$ hexo serverMore info: ServerGenerate static files1$ hexo generateMore info: GeneratingDeploy to remote sites1$ hexo deployMore info: Deployment]]></content>
       <categories>
         <category>hexo</category>
         <category>hello</category>
       </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[CentOS7下Tomcat启动慢的原因及解决方案]]></title>
+    <url>%2F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%2Fceshi%2F</url>
+    <content type="text"><![CDATA[HTTP原理概念知识讲解什么是HTTPHTTP全称为HyperText Transfer Protocol，翻译为中文为“超文本传输协议”，它是互联网上应用最为广泛的一种网络协议，HTTP属于TCP的一种应用协议，它主要的作用是把服务器上的文本、图形、音乐、视频等多媒体资源展现给用户，用户通过User_agent（比如，浏览器）来查看这些信息。HTTP的发展历史1）HTTP/0.9版本HTTP第一个版本于1991年发布，在那个年代互联网还没有怎么发展，所以0.9版本的HTTP也是十分简单的，该版本只有一个GET命令，并没有HTTP头，也没有状态码。发布时并没有定义版本号，这个0.9是后来给它加上的，主要是和后面的1.0版本进行区分。该版本仅支持html的文本，所以当时的网页也就是简单的文字，非常单一。===服务器不支持长连接==当客户端和服务端通信完后就会关闭连接，一次连接一个请求。由于没有状态码，如果服务器处理的时候发生了错误，它只能传回一个包含问题描述信息的HTML文本。2）HTTP/1.0版本HTTP的1.0版本于1996年5月发布1，该版本有了很大改进。1.0版本支持了更多文件格式，比如图片、视频、二进制文件，使得网页内容更加丰富，该版本的出现促使了互联网快速发展。相比上一个0.9版本，它支持了更多的方法：GET、POST、HEAD。之前我们只能从服务器上下载HTML，到了这个版本我们还可以向服务器提交数据。另外，该版本增加了包头信息（HTTP header）、状态码、缓存、权限等功能。但是，==服务器还是不支持长连接==，当客户端和服务端通信完后就会关闭连接，一次连接一个请求。3）HTTP/1.1版本1997年1月发布了HTTP1.1版本，其实，目前主流的HTTP版本依然是1.1。1.1版本终于==支持了持久连接(长连接)，==一个连接可以发送多个请求，并且支持一个连接同时发送多个请求（服务器端需要按顺序返回结果）。它在上一版的基础上又支持了更多的方法：PUT、PATCH、DELETE、OPTIONS。另外，1.1版本在客户端请求头信息增加了Host字段，定义了服务器的域名，从而服务器上支持了虚拟主机，即一台机器多个站点。4）HTTP/2 版本HTTP的2版本（注意，这里并不是2.0）于2015年发布，目前还未正式大规模使用，但大多浏览器已经支持。在之前版本里，HTTP header必须是文本（ASCII编码）格式，body部分可以是文本也可以是二进制，但在HTTP/2版本，无论是header还是body都是二进制数据。==HTTP/2支持了在一个连接里，客户端和服务端同时发送多个请求，==这个特性跟1.1版本有很大的差异，如下图所示：由于支持了在一个连接里同时发送多个请求和多个回应，为了区分它们就需要对数据做标记，每个请求或回应的所有数据包为一个数据流（stream），每个数据流都有一个唯一的ID，客户端发送的请求ID为奇数，服务端返回的为偶数。HTTP/2支持header压缩，并且支持header信息索引，客户端和服务端有一张相同的索引表，不同的header对应不同的索引号，发送请求时不会再发header，而是发索引号，这样大大节省了传输header的时间。HTTP/2还支持了服务端主动推送功能，如果一个网页中含有大量的静态资源（js、css、图片等），之前版本是当该网页传输完成后解析所有html代码后，然后再去传输网页中包含的资源，而HTTP/2版本可以在网页没有传输完之前就主动把该网页中包含的静态资源推送到客户端，这样省去了客户端再次发请求的过程。]]></content>
+      <categories>
+        <category>云服务器</category>
+      </categories>
+      <tags>
+        <tag>centOS</tag>
+        <tag>tomcat</tag>
+      </tags>
   </entry>
 </search>
