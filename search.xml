@@ -5,10 +5,10 @@
     <url>%2Fposts%2Fc4a19b3c.html</url>
     <content type="text"><![CDATA[hexo分类实现多子级划分下面会讲到如何创建分类,及使用二级分类功能!如果没有分类(categories)页面,就先创建一个1hexo new page categories进入新创建的页面目录1cd Hexo\source\categories编辑页面基本设置12345vim index.md#基本设置title: tagsdate: 2019-01-02 21:01:24type: "categories"如果设置了多说,畅言等评论会在分类或者标签什么的显示出来,如果不喜欢可以进行一下设置1234567vim index.md#基本设置title: tagsdate: 2019-01-02 21:01:24type: "categories"#加入此参数comments: false #代表关闭评论¶如何在文章中使用分类功能呢?创建一个新的markdown文档1hexo new "文章名称"生产后会提示你文件路径,一般在hexo/source/_posts下文章的基本设置123456789101112---title: CentOS7下Tomcat启动慢的原因及解决方案date: 2019-01-02 21:01:24comments: true #是否可评论toc: true #是否显示文章目录categories: #分类 - Linux运维tags: #标签 - centOS - tomcat---¶如何在文章中使用二级及多级分类呢?1234567891011121314---title: CentOS7下Tomcat启动慢的原因及解决方案date: 2019-01-02 21:01:24comments: true #是否可评论toc: true #是否显示文章目录categories: #分类 - Linux运维 #这是一级分类 - Python开发 #这是二级分类 - docker #这是三级分类 - xxxxxx #往下继续延伸就是无限子类划分tags: #标签 - centOS - tomcat---二级分类及多级分类图片演示]]></content>
       <categories>
-        <category>Hexo</category>
+        <category>hexo</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
