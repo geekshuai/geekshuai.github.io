@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.geekshuai.com/about/index.html</loc>
+    
+    <lastmod>2019-04-08T15:34:00.177Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.geekshuai.com/posts/e574321.html</loc>
     
     <lastmod>2019-04-07T14:24:44.973Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>https://www.geekshuai.com/top/index.html</loc>
     
     <lastmod>2019-04-07T11:22:46.867Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.geekshuai.com/about/index.html</loc>
-    
-    <lastmod>2019-04-07T07:33:59.165Z</lastmod>
     
   </url>
   
