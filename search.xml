@@ -12,6 +12,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Hexo主题优化-文章置顶+置顶标签]]></title>
+    <url>%2Fposts%2Fe574321.html</url>
+    <content type="text"><![CDATA[博文置顶一种方法是手动对相关文件进行修改，具体可参考这篇文章。另一种方法就是，目前已经有修改后支持置顶的仓库，可以直接用以下命令安装。12npm uninstall hexo-generator-index --savenpm install hexo-generator-index-pin-top --save然后在需要置顶的文章的Front-matter中加上top: true即可。比如下面这篇文章：12345678910111213---title: Hexo主题优化-文章置顶+置顶标签comments: truetoc: truetop: true #再次添加此项即可categories: - hoxetags: - hoxedate: 2019-01-02 21:01:24---置顶功能已经可以实现了。置顶的文章显示在最上面之后，如果没有明确的置顶标志，是不是感觉很奇怪？设置置顶标志打开：/hexo/themes/next/layout/_macro目录下的post.swig文件，定位到&lt;div class=&quot;post-meta&quot;&gt;标签下，插入如下代码：1234567&#123;% if post.top %&#125; &lt;span class="post-meta-item-icon"&gt; &lt;i class="fa fa-thumb-tack"&gt;&lt;/i&gt; &lt;/span&gt; &lt;font color="red"&gt;置顶&lt;/font&gt; &lt;span class="post-meta-divider"&gt;|&lt;/span&gt; &#123;% endif %&#125;¶添加代码位置展示:¶页面展示:]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Nginx配置文件-events配置部分(1.2)]]></title>
     <url>%2Fposts%2F1d10d4e6.html</url>
     <content type="text"><![CDATA[Nginx配置文件-events配置部分(1.2)此配置文件根据笔记本NGINX文章对比查看1worker_connections 1024;定义每个work_process同时开启的最大连接数，即允许最多只能有这么多连接。说明大小按照需求来设置,平常网站设置到1万就已经很好了!1accept_mutex on;当某一个时刻只有一个网络连接请求服务器时，服务器上有多个睡眠的进程会被同时叫醒，这样会损耗一定的服务器性能。Nginx中的accept_mutex设置为on，将会对多个Nginx进程（worker processer）接收连接时进行序列化，防止多个进程争抢资源。默认就是on。说明这里提到的进程是下图显示的worker process1multi_accept on;nginx worker processer可以做到同时接收多个新到达的网络连接，前提是把该参数设置为on。默认为off，即每个worker process一次只能接收一个新到达的网络连接。说明想要高并发就要把此参数设置成ON!1use epoll;Nginx服务器提供了多个事件驱动器模型来处理网络消息。其支持的类型有：select、poll、kqueue、epoll、rtsing、/dev/poll以及eventport。select：只能在Windows下使用，这个事件模型不建议在高负载的系统使用poll:Nginx默认首选，但不是在所有系统下都可用kqueue:这种方式在FreeBSD 4.1+, OpenBSD2.9+, NetBSD 2.0, 和 MacOS X系统中是最高效的epoll: 这种方式是在Linux 2.6+内核中最高效的方式rtsig:实时信号，可用在Linux 2.2.19的内核中，但不适用在高流量的系统中/dev/poll: Solaris 7 11/99+,HP/UX 11.22+, IRIX 6.5.15+, and Tru64 UNIX 5.1A+操作系统最高效的方式eventport: Solaris 10最高效的方式¶为什么Nginx总体性能比Apache高说明Nginx使用epoll和kqueue(freebsd)异步网络I/O模型apache使用传统的select模型¶使用通俗的语言比喻epoll和select模型假设你在大学读书,住的宿舍楼有很多房间,你的朋友要来找你。select版宿管大妈就会带着你的朋友到各房间挨个去找,直到找到你为止。而epoll版宿管大妈会先记下每位入住同学的房间号,你的朋友来找你时,只需告诉你的朋友你住在哪个房间即可,不用亲自带着你的朋友满宿舍楼找人了。如果同时来了100个人,都要找自己住这栋楼的同学, select版和epo版宿管大妈,谁的效率更高,就很明显了。¶在实际工作中如何选择合适的服务软件静态业务：高并发场景尽量采用nginx或者lighttpd，二者首选nginx动态服务：理论上采用nginx和apache均可，建议选择nginx，为了避免相同业务的服务软件多样化，增加额外维护成本，动态业务可以由nginx前端代理，再根据页面元素的类型目录，转发到后端相应的服务器处理进程。既有静态业务也有动态业务：采用nginx]]></content>
@@ -48,17 +59,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hexo主题优化-文章置顶+置顶标签]]></title>
-    <url>%2Fposts%2Fe574321.html</url>
-    <content type="text"><![CDATA[博文置顶一种方法是手动对相关文件进行修改，具体可参考这篇文章。另一种方法就是，目前已经有修改后支持置顶的仓库，可以直接用以下命令安装。12npm uninstall hexo-generator-index --savenpm install hexo-generator-index-pin-top --save然后在需要置顶的文章的Front-matter中加上top: true即可。比如下面这篇文章：12345678910111213---title: Hexo主题优化-文章置顶+置顶标签comments: truetoc: truetop: true #再次添加此项即可categories: - hoxetags: - hoxedate: 2019-01-02 21:01:24---置顶功能已经可以实现了。置顶的文章显示在最上面之后，如果没有明确的置顶标志，是不是感觉很奇怪？设置置顶标志打开：/hexo/themes/next/layout/_macro目录下的post.swig文件，定位到&lt;div class=&quot;post-meta&quot;&gt;标签下，插入如下代码：1234567&#123;% if post.top %&#125; &lt;span class="post-meta-item-icon"&gt; &lt;i class="fa fa-thumb-tack"&gt;&lt;/i&gt; &lt;/span&gt; &lt;font color="red"&gt;置顶&lt;/font&gt; &lt;span class="post-meta-divider"&gt;|&lt;/span&gt; &#123;% endif %&#125;¶添加代码位置展示:¶页面展示:]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[nginx配置文件-server配置部分(1.4)]]></title>
     <url>%2Fposts%2F1d10d4e6.html</url>
     <content type="text"><![CDATA[nginx配置文件-server配置部分(1.4)server{} 包含在http{}内部，每一个server{}都是一个虚拟主机（站点）。¶以下为nginx.conf配置文件中server{}部分的内容。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081 server &#123; listen 80; //监听端口为80，可以自定义其他端口，也可以加上IP地址，如，listen 127.0.0.1:8080; server_name localhost; //定义网站域名，可以写多个，用空格分隔。 #charset koi8-r; //定义网站的字符集，一般不设置，而是在网页代码中设置。 #access_log logs/host.access.log main; //定义访问日志，可以针对每一个server（即每一个站点）设置它们自己的访问日志。 ##在server&#123;&#125;里有很多location配置段 location / &#123; root html; //定义网站根目录，目录可以是相对路径也可以是绝对路径。 index index.html index.htm; //定义站点的默认页。 &#125; #error_page 404 /404.html; //定义404页面 # redirect server error pages to the static page /50x.html # error_page 500 502 503 504 /50x.html; //当状态码为500、502、503、504时，则访问50x.html location = /50x.html &#123; root html; //定义50x.html所在路径 &#125; # proxy the PHP scripts to Apache listening on 127.0.0.1:80 # #定义访问php脚本时，将会执行本location&#123;&#125;部分指令 #location ~ \.php$ &#123; # proxy_pass http://127.0.0.1; //proxy_pass后面指定要访问的url链接，用proxy_pass实现代理。 #&#125; # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 # #location ~ \.php$ &#123; # root html; # fastcgi_pass 127.0.0.1:9000; //定义FastCGI服务器监听端口与地址，支持两种形式，1 IP:Port， 2 unix:/path/to/sockt # fastcgi_index index.php; # fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name; //定义SCRIPT_FILENAME变量，后面的路径/scripts为上面的root指定的目录 # include fastcgi_params; //引用prefix/conf/fastcgi_params文件，该文件定义了fastcgi相关的变量 #&#125; # deny access to .htaccess files, if Apache's document root # concurs with nginx's one # #location ~ /\.ht &#123; //访问的url中，以/.ht开头的，如，www.example.com/.htaccess，会被拒绝，返回403状态码。 # deny all; //这里的all指的是所有的请求。 #&#125;&#125;# another virtual host using mix of IP-, name-, and port-based configuration##server &#123;# listen 8000; //监听8000端口# listen somename:8080; //指定ip:port# server_name somename alias another.alias; //指定多个server_name# location / &#123;# root html;# index index.html index.htm;# &#125;#&#125;# HTTPS server##server &#123;# listen 443 ssl; //监听443端口，即ssl# server_name localhost;### 以下为ssl相关配置# ssl_certificate cert.pem; //指定pem文件路径# ssl_certificate_key cert.key; //指定key文件路径# ssl_session_cache shared:SSL:1m; //指定session cache大小# ssl_session_timeout 5m; //指定session超时时间# ssl_protocols TLSv1 TLSv1.1 TLSv1.2; //指定ssl协议# ssl_ciphers HIGH:!aNULL:!MD5; //指定ssl算法# ssl_prefer_server_ciphers on; //优先采取服务器算法# location / &#123;# root html;# index index.html index.htm;# &#125;#&#125;]]></content>
@@ -71,17 +71,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[树莓派root账号开启]]></title>
-    <url>%2Fposts%2F14aa896.html</url>
-    <content type="text"><![CDATA[ROOT账号开启很多小伙伴在使用树莓派的时候只能使用普通用户+sudo的方式进行输入执行命令,没有办法直接sudo su - root切换到root超级管理员账号上去,这是因为ROOT密码：Raspbian 系统默认未开启，需要自行开启并设置密码。¶方法如下第一步使用pi用户登录树莓派系统之后，在命令行下输入：1sudo passwdroot然后提示你输入两次要设置的密码第二步最后执行如下命令：1sudo passwd --unlock root #解锁root用户至此，root账户开启并设置好密码了。]]></content>
-      <categories>
-        <category>树莓派</category>
-      </categories>
-      <tags>
-        <tag>树莓派</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[用户访问web网站基本流程]]></title>
     <url>%2Fposts%2Ffb1665c6.html</url>
     <content type="text"><![CDATA[用户访问网站基本流程第一步客户端在浏览器输入www.geekshuai.com网址,回车后,系统首先查找系统本地的DNS缓存及hosts文件信息,确认是否存在www.geekshuai.com域名对应的IP解析记录,如果有就直接获取IP地址信息,然后去访问这个地址,一般第一次访问的时候,是没有缓存DNS解析记录的,而且hosts文件多半部分是内部测试使用的也不会存在网址的缓存记录第二步上面的步骤没有找到www.geekshuai.com域名对应的解析记录的话,系统会把浏览器的解析请求发送给客户端本地设置的DNS服务器(通常称此DNS为LDNS,即local DNS)解析,如果LDNS服务器的本地缓存有对应的接续记录就只会返回IP地址给客户端,如果没有LDNS服务器会负责请求其他的DNS服务器,第三步LDNS从DNS系统的(&quot; . &quot;)根开始请求对www.geekshuai.com域名的解析,并针对各层级的DNS服务器进行一系列的查找,最终会查找到geekshuai.com域名对应的授权DNS服务器,而这个授权DNS服务器正是企业购买域名时用于管理域名解析的服务器,这个授权服务器会有www.geekshuai.com对应的UO解析记录,如果没有IP解析记录就表明没有这个网站,或者是域名管理人员没有对www.geekshuai.com域名做域名解析,即网站没有架设好!第四步geekshuai.com域名的授权DNS服务器会把www.geekshuai.com对应的最终IP解析记录(如:10.0.0.1)发给LDNS第五步LDNS把来自授权DNS服务器www.geekshuai.com对应的IP解析记录发给客户端浏览器,并且会把该域名和IP的对应解析缓存起来(下次可以直接返还给客户端浏览器)这些缓存记录在指定时间(DNS TTL值控制)内不会过期TTL 说明一些门户网站一般设置为30秒,时间越长代表更新时间越长,在更新的时候会等待各级DNS服务器的缓存都失效再更新第六步客户端浏览器获取到了www.geekshuai.com对应的IP地址,接下来,浏览器会请求获得IP地址对应的网站服务器,网站服务器接收到客户的请求并响应处理(此处的处理可能一一台云主机,也可能是成百上千台集群服务器),网站服务器将内容返还给客户端浏览器.至此,一次访问浏览网页的完整过程就结束了!¶提示上面说到的仅仅是客户端用户第一次访问网站的基本过程,连续访问后,系统本地和LDNS层级都会有缓存记录,再访问时流程会有些变化,会直接取本地缓存记录,这样访问过程就很快了!]]></content>
@@ -91,6 +80,17 @@
       </categories>
       <tags>
         <tag>http</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[树莓派root账号开启]]></title>
+    <url>%2Fposts%2F14aa896.html</url>
+    <content type="text"><![CDATA[ROOT账号开启很多小伙伴在使用树莓派的时候只能使用普通用户+sudo的方式进行输入执行命令,没有办法直接sudo su - root切换到root超级管理员账号上去,这是因为ROOT密码：Raspbian 系统默认未开启，需要自行开启并设置密码。¶方法如下第一步使用pi用户登录树莓派系统之后，在命令行下输入：1sudo passwdroot然后提示你输入两次要设置的密码第二步最后执行如下命令：1sudo passwd --unlock root #解锁root用户至此，root账户开启并设置好密码了。]]></content>
+      <categories>
+        <category>树莓派</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
       </tags>
   </entry>
   <entry>
